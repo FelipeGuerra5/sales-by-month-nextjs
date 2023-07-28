@@ -12,7 +12,7 @@ export default function Filters({ params }: Props): JSX.Element {
             {
                 params.map(filter => {
                     return (
-                        <div className={Styles.filter}>
+                        <div className={Styles.filter} key={filter.name}>
                             <label htmlFor={filter.name}>{filter.name}: </label>
                             <Filter params={filter} />
                         </div>

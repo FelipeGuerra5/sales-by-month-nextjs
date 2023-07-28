@@ -8,7 +8,7 @@ export default function Graph({ params }: Props): JSX.Element {
         <div className={Styles.graph_container}>
             {params.map(item => {
                 return (
-                    <div>
+                    <div key={item.month}>
                         <h1>{item.month}</h1>
                         <p>{item.sells}</p>
                     </div>

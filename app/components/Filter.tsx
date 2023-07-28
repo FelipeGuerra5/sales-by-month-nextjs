@@ -9,9 +9,9 @@ export default function Filter({ params }: Props): JSX.Element {
     <>
       <select className={Styles.select} name={params.name} id={params.name}>
         {
-          params.items.map(items => {
+          params.items.map(item => {
             return (
-              <option value={items}>{items}</option>
+              <option value={item} key={item}>{item}</option>
             )
           })
         }

@@ -1,9 +1,27 @@
+'use client'
+
 import styles from './page.module.css'
 import Filters from './components/Filters'
 import Graph from './components/Graph';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   // const params: options = getCategories() 
+
+  const [monthlySells, setMonthlySellls] = useState<monthlySum[]>([])
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/graph')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network respons was not ok')
+        }
+        return response.json()
+      })
+      .then((data) => setMonthlySellls(data))
+      .catch((err) => console.error('Error fetching data', err))
+  }, [])
+
 
   const placeHolderOptions: options[] = [
     {
@@ -20,24 +38,11 @@ export default function Home() {
     },
   ]
 
-  const placeholderSellsPerMonth: monthlySum[] = [
-    { month: 'January', sells: 1000 },
-    { month: 'February', sells: 1200 },
-    { month: 'March', sells: 800 },
-    { month: 'April', sells: 1500 },
-    { month: 'May', sells: 1100 },
-    { month: 'June', sells: 900 },
-    { month: 'July', sells: 1300 },
-    { month: 'August', sells: 1400 },
-    { month: 'September', sells: 950 },
-    { month: 'October', sells: 1600 },
-    { month: 'November', sells: 1150 },
-    { month: 'December', sells: 1700 },
-  ]
+
   const content = (
     <>
       <Filters params={placeHolderOptions} />
-      <Graph params={placeholderSellsPerMonth} />
+      <Graph params={monthlySells} />
     </>
   )
 
