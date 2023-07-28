@@ -3,3 +3,8 @@ type options = {
     items: string[]
 
 }
+
+type monthlySum = {
+    month: string;
+    sells: number;
+}

@@ -1,18 +1,19 @@
 import Styles from '../page.module.css'
 
 type Props = {
-    params: {
-        category: string,
-        product: string,
-        brand: string
-    }
+    params: monthlySum[]
 }
 export default function Graph({ params }: Props): JSX.Element {
     const content: JSX.Element = (
         <div className={Styles.graph_container}>
-            <div>{params.category}</div>
-            <div>{params.product}</div>
-            <div>{params.brand}</div>
+            {params.map(item => {
+                return (
+                    <div>
+                        <h1>{item.month}</h1>
+                        <p>{item.sells}</p>
+                    </div>
+                )
+            })}
         </div>
     )
 
