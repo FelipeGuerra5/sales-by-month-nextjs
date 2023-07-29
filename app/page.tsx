@@ -4,14 +4,28 @@ import styles from './page.module.css'
 import Filters from './components/Filters'
 import Graph from './components/Graph';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+
 
 export default function Home() {
-  // const params: options = getCategories() 
 
-  const [monthlySells, setMonthlySellls] = useState<monthlySum[]>([])
+
+  const [monthlySells, setMonthlySellls] = useState<monthlySales[]>([])
+  const [category, setCategory] = useState<string>("Dairy")
+  const [product, setProduct] = useState<string>("Milk and Derivatives")
+  const [brand, setBrand] = useState<string>("MooMilk Co.")
+
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/graph')
+    const searchParams = new URLSearchParams()
+    searchParams.append('category', category)
+    searchParams.append('product', product)
+    searchParams.append('brand', brand)
+
+    const baseUrl = "http://localhost:3000/api/graph?"
+    const url = baseUrl + searchParams
+    console.log(url)
+    fetch(url)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network respons was not ok')
@@ -20,7 +34,7 @@ export default function Home() {
       })
       .then((data) => setMonthlySellls(data))
       .catch((err) => console.error('Error fetching data', err))
-  }, [])
+  }, [category, product, brand])
 
 
   const placeHolderOptions: options[] = [

@@ -4,7 +4,20 @@ type options = {
 
 }
 
-type monthlySum = {
+type monthlySales = {
     month: string;
-    sells: number;
+    sales: number;
+}
+
+type monthlySalesProduct = {
+    Category: string,
+    Product: string,
+    Brand: string,
+    MonthlySales: monthlySales[]
+}
+
+type filters = {
+    category: string,
+    product: string,
+    brand: string,
 }

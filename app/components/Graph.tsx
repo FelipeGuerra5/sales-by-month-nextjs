@@ -1,7 +1,7 @@
 import Styles from '../page.module.css'
 
 type Props = {
-    params: monthlySum[]
+    params: monthlySales[]
 }
 export default function Graph({ params }: Props): JSX.Element {
     const content: JSX.Element = (
@@ -10,7 +10,7 @@ export default function Graph({ params }: Props): JSX.Element {
                 return (
                     <div key={item.month}>
                         <h1>{item.month}</h1>
-                        <p>{item.sells}</p>
+                        <p>{item.sales}</p>
                     </div>
                 )
             })}
