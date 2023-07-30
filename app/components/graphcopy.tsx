@@ -1,12 +1,15 @@
 import React from 'react'
 import { LineChart, Line, ReferenceLine, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, Label, LabelList } from 'recharts'
-import Styles from '@/app/page.module.css'
+import Styles from '../App.module.css'
 
 type Props = {
     params: monthlySales[]
 }
 
-const LineGraph = ({ params }: Props): JSX.Element => {
+
+
+
+export default function LineGraph({ params }: Props): JSX.Element {
     const maxVal = params.reduce((max, { sales }) => sales > max ? sales : max, 0) * 1.1
     const step = Math.round(maxVal / 5)
     let acc = step
@@ -22,20 +25,16 @@ const LineGraph = ({ params }: Props): JSX.Element => {
             <ResponsiveContainer width="100%" height={450} align-content="center">
                 <LineChart data={params}>
                     {yValuesForHorizontalLines.map((yValue, index) => (
-                        <ReferenceLine key={index} y={yValue === 0 ? undefined : yValue} stroke="#CCC" />
+                        <ReferenceLine key={index} y={yValue} stroke="#CCC" />
                     ))}
                     <XAxis dataKey="month" />
-                    {/* <YAxis Line="false" /> */}
                     <Tooltip />
                     <Legend />
                     <Line type="linear" dataKey="sales" name="Sales" stroke="#00008B" activeDot={undefined} />
                     <Label value="Sales By Month for:" offset={0} position="top" />
                     <LabelList dataKey="sales" position="top" />
-
                 </LineChart>
             </ResponsiveContainer>
         </div>
     )
 }
-
-export default LineGraph

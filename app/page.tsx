@@ -14,7 +14,25 @@ export default function Home() {
   const [category, setCategory] = useState<string>("Dairy")
   const [product, setProduct] = useState<string>("Milk and Derivatives")
   const [brand, setBrand] = useState<string>("MooMilk Co.")
+  const [filters, setFilters] = useState<filter[]>([
+    { name: 'Category', options: [category] },
+    { name: 'Product', options: [product] },
+    { name: 'Brand', options: [brand] },
+  ])
 
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/filters")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok")
+        }
+        return response.json()
+      })
+      .then((data) => {
+        setFilters(data)
+      })
+  }, [])
 
   useEffect(() => {
     const searchParams = new URLSearchParams()
@@ -28,7 +46,7 @@ export default function Home() {
     fetch(url)
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Network respons was not ok')
+          throw new Error('Network response was not ok')
         }
         return response.json()
       })
@@ -36,26 +54,13 @@ export default function Home() {
       .catch((err) => console.error('Error fetching data', err))
   }, [category, product, brand])
 
-
-  const placeHolderOptions: options[] = [
-    {
-      name: 'Category',
-      items: ['Cat Place Holder']
-    },
-    {
-      name: 'Product',
-      items: ['Product Place Holder']
-    },
-    {
-      name: 'Brand',
-      items: ['Brand Place Holder']
-    },
-  ]
-
-
   const content = (
     <>
-      <Filters params={placeHolderOptions} />
+      <Filters params={{
+        options: filters, hooks: {
+          category, product, brand, setCategory, setProduct, setBrand
+        }
+      }} />
       <Graph params={monthlySells} />
     </>
   )

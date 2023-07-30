@@ -1,7 +1,6 @@
-type options = {
+type filter = {
     name: string,
-    items: string[]
-
+    options: string[]
 }
 
 type monthlySales = {
@@ -20,4 +19,13 @@ type filters = {
     category: string,
     product: string,
     brand: string,
+}
+
+type hooks = {
+    category: string,
+    product: string,
+    brand: string,
+    setCategory: Dispatch<SetStateAction<string>>,
+    setProduct: Dispatch<SetStateAction<string>>,
+    setBrand: Dispatch<SetStateAction<string>>,
 }

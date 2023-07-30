@@ -1,4 +1,4 @@
-export default function getCategories(): options[] {
+export default function getCategories(): filter[] {
 
 
     return ()

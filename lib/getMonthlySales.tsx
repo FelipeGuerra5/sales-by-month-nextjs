@@ -5,7 +5,7 @@ type Props = {
 }
 
 export default function getMonthlySales({ params }: Props): monthlySales[] {
-
+    // This function surfice for the data was thought to be already a sum of all monhtly sales
     const monthlySalesArr: monthlySales[] = []
     Data.map(item => {
         if (
@@ -16,7 +16,6 @@ export default function getMonthlySales({ params }: Props): monthlySales[] {
             item.MonthlySales.map(item => monthlySalesArr.push(item))
         }
     })
-    monthlySalesArr.push({ month: '', sales: 0 })
 
     return monthlySalesArr
 }
